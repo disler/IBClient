@@ -3,8 +3,7 @@ const electron = require('electron');
 
 const app = electron.app;
 
-// adds debug features like hotkeys for triggering dev tools and reload
-require('electron-debug')();
+require('electron-reload')(__dirname);
 
 // prevent window being garbage collected
 let mainWindow;
@@ -17,9 +16,15 @@ function onClosed() {
 
 function createMainWindow() {
 	const win = new electron.BrowserWindow({
-		width: 600,
-		height: 400
+		width: 1000,
+		height: 800,
+		minWidth: 600,
+		minWeight: 400,
+		devTools : true
 	});
+
+	win.setMenu(null);
+    win.webContents.openDevTools()
 
 	win.loadURL(`file://${__dirname}/index.html`);
 	win.on('closed', onClosed);
