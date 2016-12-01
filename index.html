@@ -4,16 +4,34 @@
 		<meta charset="utf-8">
 		<title>Isler Brothers Client</title>
 		<link rel="stylesheet" href="index.css">
-		<link rel="import" href="./app/components/chat/chat.html">
+		<link id="chat" rel="import" href="./app/components/chat/chat.html">
+		<!-- <link id="settings" rel="import" href="./app/components/settings/settings.html"> -->
 	</head>
 	<body>
-		<div class="container">
-			<header></header>
-			<section id="content" class="main"></section>
-			<footer></footer>
+		<div class="app-wrapper">
+			<header class="header">
+				<div class="header-wrapper">
+					<div class="header-container">
+						<div id="apps" class="header-apps-container">
+						
+							<div app="chat" class="header-app-container">
+								<img src="./app/components/chat/icon.png" class="header-app-img">
+							</div>
+
+							<!-- Dynamically grab content?!?!!? -->
+						</div>
+					</div>
+				</div>
+			</header>
+			<section id="content" class="content">
+				<div class="welcome">
+					Welcome to the IBClient
+				</div>
+			</section>
+			<footer class="footer"></footer>
 		</div>
 	</body>
 	<script type="text/javascript">
 		require("./app/components/initial/initial.js");
-	</script>
-</html>
+	</script> 
+</html> 

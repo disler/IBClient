@@ -1,9 +1,17 @@
 'use strict';
 const electron = require('electron');
 
+const {ipcMain} = require('electron');
+
 const app = electron.app;
 
-require('electron-reload')(__dirname);
+const oQuickConfig = {
+	bReload : false,
+}
+
+//cannot use while importing apps
+if(oQuickConfig.bReload)
+	require('electron-reload')(__dirname);
 
 // prevent window being garbage collected
 let mainWindow;
@@ -18,8 +26,8 @@ function createMainWindow() {
 	const win = new electron.BrowserWindow({
 		width: 1000,
 		height: 800,
-		minWidth: 600,
-		minWeight: 400,
+		minWidth: 800,
+		minHeight: 550,
 		devTools : true
 	});
 
@@ -28,6 +36,13 @@ function createMainWindow() {
 
 	win.loadURL(`file://${__dirname}/index.html`);
 	win.on('closed', onClosed);
+
+	ipcMain.on('request-app-paths', (event, args) => {
+		event.returnValue = {
+			APPLICATION_APP_DATA_PATH : app.getPath("userData"),
+			APPLICATION_APP_BASE_PATH : __dirname
+		};
+	})
 
 	return win;
 }

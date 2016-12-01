@@ -1,0 +1,14 @@
+chat
+	- Drag and drop images/links/gifs
+
+weather
+	- hourly temp/conditions and 1 week ahead
+
+mutli user code pad
+	- everyone can edit and view
+
+camera streaming
+	- like ghangout
+
+screen share
+	- share a screen/app

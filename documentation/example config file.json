@@ -1,0 +1,28 @@
+{
+	"user": {
+		"username": "Dan"
+	},
+	"global" : {
+		"production" : false,
+		"faye" : {
+			"productionServerUrl" : "",
+			"debugServerUrl" : "http://localhost:3333/faye"
+		}
+	},
+	"apps": [
+		{
+			"id": "72c67a0f-4389-4084-91b2-650ea8cf310e",
+			"name": "chat",
+			"builtIntoCore": true
+		},
+		{
+			"id" : "d293e176-f4ad-4f0c-a382-bf9f757726b4",
+			"name" : "weather",
+			"relativePath" : "weather",
+			"html" : "weather.html",
+			"iconInRelativePath" : "icon.png",
+			"builtIntoCore" : false,
+			"overwrite" : true
+		}
+	]
+}
