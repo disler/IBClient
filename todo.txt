@@ -1,0 +1,6 @@
+sInput is the text message
+add case to HandleMessageCommand
+
+have to add new publish method on fayeClient
+    call PublishEvent like on line 45,
+    and add a switch on line 87

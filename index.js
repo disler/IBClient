@@ -1,64 +1,78 @@
 'use strict';
-const electron = require('electron');
 
-const {ipcMain} = require('electron');
+process.on('uncaughtException', (error) =>
+{
+    process.emitWarning(`Uncaught exception: ${error}`);
+    process.exit(1);
+});
 
-const app = electron.app;
+const {ipcMain, app, BrowserWindow} = require('electron');
 
 const oQuickConfig = {
-	bReload : false,
+    bReload : false,
 }
 
+const WINDOW_MIN_WIDTH = 800;
+const WINDOW_MIN_HEIGHT = 600;
+const WINDOW_DEFAULT_WIDTH = 1200;
+const WINDOW_DEFAULT_HEIGHT = 900;
+
 //cannot use while importing apps
-if(oQuickConfig.bReload)
-	require('electron-reload')(__dirname);
+if (oQuickConfig.bReload)
+{
+    require('electron-reload')(__dirname);
+}
 
 // prevent window being garbage collected
 let mainWindow;
 
-function onClosed() {
-	// dereference the window
-	// for multiple windows store them in an array
-	mainWindow = null;
+function onClosed()
+{
+    // dereference the window
+    // for multiple windows store them in an array
+    mainWindow = null;
 }
 
-function createMainWindow() {
-	const win = new electron.BrowserWindow({
-		width: 1000,
-		height: 800,
-		minWidth: 800,
-		minHeight: 550,
-		devTools : true
-	});
+function createMainWindow()
+{
+    const win = new BrowserWindow({
+        minWidth: WINDOW_MIN_WIDTH,
+        minHeight: WINDOW_MIN_HEIGHT,
+        width: WINDOW_DEFAULT_WIDTH,
+        height: WINDOW_DEFAULT_HEIGHT,
+        autoHideMenuBar: true,
+        title: 'IBClient'
+    });
 
-	win.setMenu(null);
+    win.setMenu(null);
     win.webContents.openDevTools()
 
-	win.loadURL(`file://${__dirname}/index.html`);
-	win.on('closed', onClosed);
+    win.loadURL(`file://${__dirname}/index.html`);
+    win.on('closed', onClosed);
 
-	ipcMain.on('request-app-paths', (event, args) => {
-		event.returnValue = {
-			APPLICATION_APP_DATA_PATH : app.getPath("userData"),
-			APPLICATION_APP_BASE_PATH : __dirname
-		};
-	})
+    ipcMain.on('request-app-paths', (event, args) => {
+        event.returnValue = {
+            APPLICATION_APP_DATA_PATH : app.getPath("userData"),
+            APPLICATION_APP_BASE_PATH : __dirname
+        };
+    });
 
-	return win;
+    return win;
 }
 
 app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 });
 
 app.on('activate', () => {
-	if (!mainWindow) {
-		mainWindow = createMainWindow();
-	}
+    if (!mainWindow) {
+        mainWindow = createMainWindow();
+    }
 });
 
 app.on('ready', () => {
-	mainWindow = createMainWindow();
+    mainWindow = createMainWindow();
 });
+
