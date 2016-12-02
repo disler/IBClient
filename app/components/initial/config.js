@@ -60,6 +60,7 @@ class Config
 		this.ResetExport();
 	}
 
+    // grabs username field from config.json in appdata
 	GetUserConfig(sFieldName)
 	{
 		return this.oConfig.user[sFieldName];

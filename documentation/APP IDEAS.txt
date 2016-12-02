@@ -1,14 +1,18 @@
+
 chat
-	- Drag and drop images/links/gifs
+    - Drag and drop images/links/gifs
 
 weather
-	- hourly temp/conditions and 1 week ahead
+    - hourly temp/conditions and 1 week ahead
 
 mutli user code pad
-	- everyone can edit and view
+    - everyone can edit and view
+        - codemirror: customizable online text editor
+        - https://codemirror.net/index.html#description
 
 camera streaming
-	- like ghangout
+    - like ghangout
 
 screen share
-	- share a screen/app
+    - share a screen/app
+

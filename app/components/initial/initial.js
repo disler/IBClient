@@ -28,8 +28,8 @@ class Initial
 		this.APP_DATA_PATH = "";
 		this.APP_COMPONENTS_DIR_PATH = "";
 
-		this.ConnectToDom();
 		this.Configure();
+        this.ConnectToDom();
 
 	}
 
@@ -41,6 +41,10 @@ class Initial
 			const sAppName = this.getAttribute("app");
 			That.ChangeView(sAppName);
 		});
+
+        //show username to user on app startup
+        const sUsername = Config.GetUserConfig('username');
+        $('span.username').text(sUsername);
 	}
 
 	Configure()

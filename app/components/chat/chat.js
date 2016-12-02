@@ -5,8 +5,8 @@ const 	faye = require('faye'),
 
 //dom constants
 const jqelOutputWrapper = $(".output-wrapper");
-const 	jqelOutput = $("#output");
-const 	jqelInput = $("#input");
+const jqelOutput = $("#output");
+const jqelInput = $("#input");
 
 //project level constants
 const lstCommands = ["/name"];
