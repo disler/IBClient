@@ -14,7 +14,7 @@ This repository contains the Isler Bros Client core functionality. The client is
 ## Test
 Before pushing changes, ensure ```npm run start``` works.
 
-### To-do
+## To-do
 - Add OmnislashBot integration to chat app (see doc/omnislash-bot.txt)
 - Add [SASS](http://sass-lang.com/guide#topic-1)
 
