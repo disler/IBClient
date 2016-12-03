@@ -7,32 +7,39 @@ This repository contains the Isler Bros Client core functionality. The client is
 ## Build
 - ```npm install```
   - (If editing SASS/scss) ```npm run sass-dev```
-    1. [Install Ruby](http://rubyinstaller.org/downloads)
+    1. [Install Ruby]
     2. ```gem install ruby```
 
 ## Run
 - ```npm start```
 
+## Develop
+- If editing Sass
+  - If Ruby or Sass is not installed on your machine:
+      - [Install Ruby](http://rubyinstaller.org/downloads) and ensure Ruby is in PATH
+      - ```gem -v``` then ```gem install sass``` then ```sass -v```
+  - Sass hot-compile to css ```npm run sass-dev```
+
 ## Test
-Before pushing changes, ensure ```npm run start``` works.
+Before pushing changes, ensure ```npm start``` works.
 
 ## To-do
 - Add OmnislashBot integration to chat app (see doc/omnislash-bot.txt)
 - Add [SASS](http://sass-lang.com/guide#topic-1)
 
-## Conception Ideas
-- Data stored in infinitybf and client built in electron
-- Drag and Drop functionality (Imagery, Video, File, Executable)
-- Fast chat system (pubsub, node.js server) (history inclusive).
-- Video streaming (challenging).
-- Desktop streaming (also challenging).
-- Encryption (RS Priv pub, ECC, RSA, [other types])
-- Remote Package Manager functionaltiy (processess, command execution)
-- 3 way tetris attack (HTML5, d3js)
-- ```"Full scale mmorpg with original 3d art, full side quest stories, real life dialogue, full live recorded orchestral score, company trips to vietnom and irelands for inspiration, side mini games, video production behind the scenes full cameos tdm mode rank systems."```
-- Google URL shorterner (programmatically shorten URLs).
-- Weather App: provides quick summary of curent weather, hourly weather & 7 days ahead.
-- Social Media Posts?
-- @RemindBot implementation
-- Live code pad sharer all code is visible/editable to all clients (Code Mirror).
-- Drop YouTube links into areas which queue songs which can be listened to in sync.
+### Conception Ideas
+- Store chat history (in infinitybf?)
+- Drag and drop files
+- Video streaming
+- Desktop share
+- Communications encryption (ECC? Check nodejs existing packages)
+- Remote Package Manager integration (And remote shell?)
+- 3 way tetris attack (HTML5, d3js?)
+- ```"Full scale mmorpg with original 3d art, full side quest stories, real life dialogue, full live recorded orchestral score, company trips to vietnom and irelands for inspiration, side mini games, video production behind the scenes full cameos tdm mode rank systems"```
+- Google URL shorterner (programmatically shorten URLs)
+- Programmatically shorten links with goo.gl
+- Weather application integration with DarkSky API (OmnislashBot)
+- Social media integration?
+- Live code-share with Code Mirror
+- Drop youtube links to queue songs in sync
+
