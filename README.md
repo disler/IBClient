@@ -6,7 +6,9 @@ This repository contains the Isler Bros Client core functionality. The client is
 
 ## Build
 - ```npm install```
-- ```npm run sass-dev``` (If editing SASS/scss)
+  - (If editing SASS/scss) ```npm run sass-dev```
+    1. [Install Ruby](http://rubyinstaller.org/downloads)
+    2. ```gem install ruby```
 
 ## Run
 - ```npm start```
