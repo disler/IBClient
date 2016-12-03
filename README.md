@@ -6,9 +6,6 @@ This repository contains the Isler Bros Client core functionality. The client is
 
 ## Build
 - ```npm install```
-  - (If editing SASS/scss) ```npm run sass-dev```
-    1. [Install Ruby]
-    2. ```gem install ruby```
 
 ## Run
 - ```npm start```
@@ -31,7 +28,7 @@ Before pushing changes, ensure ```npm start``` works.
 - Store chat history (in infinitybf?)
 - Drag and drop files
 - Video streaming
-- Desktop share
+- Desktop sharing
 - Communications encryption (ECC? Check nodejs existing packages)
 - Remote Package Manager integration (And remote shell?)
 - 3 way tetris attack (HTML5, d3js?)
