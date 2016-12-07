@@ -56,6 +56,7 @@ class Chat
 	ConnectToServer()
 	{
 		const sFayeConnection = Config.GetFayeConnectionUrl();
+		console.log("sFayeConnection: ", sFayeConnection);
 		this.fayeClient = new faye.Client(sFayeConnection);
 		this.fayeClient = this.AddSubscription(this.fayeClient, "receive");
 	}

@@ -15,4 +15,13 @@ camera streaming
 
 screen share
     - share a screen/app
+    	https://kanaka.github.io/noVNC/
+    	https://kanaka.github.io/noVNC/screenshots.html
+    	js implementation of VNC (virtual network computer) ie screen share
+
+
+
+Frameworks/tools/db:
+	http://graphql.org/
+	reactjs
 
