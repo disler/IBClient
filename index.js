@@ -9,13 +9,14 @@ process.on('uncaughtException', (error) =>
 const {ipcMain, app, BrowserWindow} = require('electron');
 
 const oQuickConfig = {
-    bReload : false,
+    bReload : true,
+    bLoadExternalApps: false
 }
 
 const WINDOW_MIN_WIDTH = 800;
 const WINDOW_MIN_HEIGHT = 600;
-const WINDOW_DEFAULT_WIDTH = 1200;
-const WINDOW_DEFAULT_HEIGHT = 900;
+const WINDOW_DEFAULT_WIDTH = 900;
+const WINDOW_DEFAULT_HEIGHT = 700;
 
 //cannot use while importing apps
 if (oQuickConfig.bReload)
@@ -54,6 +55,12 @@ function createMainWindow()
         event.returnValue = {
             APPLICATION_APP_DATA_PATH : app.getPath("userData"),
             APPLICATION_APP_BASE_PATH : __dirname
+        };
+    });
+
+    ipcMain.on('should-load-external-apps', (event, args) => {
+        event.returnValue = {
+            bLoadExternalApps: false
         };
     });
 

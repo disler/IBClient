@@ -6,6 +6,7 @@ const path = require('path')
 const $ = require("jquery");
 const Config = require("./config.js");
 const {APPLICATION_APP_DATA_PATH, APPLICATION_APP_BASE_PATH} = ipcRenderer.sendSync("request-app-paths");
+const {bLoadExternalApps} = ipcRenderer.sendSync("should-load-external-apps");
 
 //app level constants
 const COMPONENTS_DIR_NAME = "external_components";
@@ -71,7 +72,8 @@ class Initial
 		const lstApps = config.GetApplications();
 
 		//import externally loaded applications
-		this.ImportApplications(lstApps, oApplicationPaths.sComponentsDirectory, oApplicationPaths.sApplicationComponentsRunnableDirectory);
+		if(bLoadExternalApps)
+			this.ImportApplications(lstApps, oApplicationPaths.sComponentsDirectory, oApplicationPaths.sApplicationComponentsRunnableDirectory);
 
 	}
 

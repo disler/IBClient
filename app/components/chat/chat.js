@@ -94,18 +94,25 @@ class Chat
 	AppendMessage(sMessage, bMyGuid, _sWho)
 	{
 		let sMessageDivClass = "";
+		let sMessageContainerDivClass = "";
 		const sWho = bMyGuid ? "Me" : _sWho ? _sWho : "Anon";
 		if(bMyGuid)
+		{
+			sMessageContainerDivClass = "new-message-me-position-container";
 			sMessageDivClass = "new-message-me-container"
+		}
 		else
+		{
+			sMessageContainerDivClass = "new-message-brothers-position-container";
 			sMessageDivClass = "new-message-brothers-container"
+		}
 
 		const jqelNewMessageDivWrapper = $("<div/>", {
 			class : "new-message-wrapper"
 		});
 
 		const jqelNewMessageDivContainer = $("<div/>", {
-			class : "new-message-container"
+			class : `${sMessageContainerDivClass} new-message-container`
 		}).appendTo(jqelNewMessageDivWrapper);
 
 		const jqelNewMessageHeaderTextContainer = $("<div/>", {

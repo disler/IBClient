@@ -21,10 +21,19 @@
 			}
 				.new-message-container{
 					height:auto;
+					width: auto;
 					max-width:350px;
 					margin-top:12px;
-					margin-left:auto;
-					margin-right:auto;
+				}
+				.new-message-me-position-container{
+					margin-right:15px;
+				    margin-left: auto;
+					min-width:auto;
+				}
+				.new-message-brothers-position-container{
+					margin-left:15px;
+				    margin-right: auto;
+					min-width:auto;
 				}
 					.new-message-header-text-container{
 						width:100%;
@@ -39,12 +48,13 @@
 						border:1px solid #aaa;
 						border-radius:10px;
 						box-shadow:1px 1px 3px #aaa;
-						font-size:12px;
+						font-size:14px;
 					}.new-message-me-container{
 						border:1px solid #92a9a9;
 						background-color:#e5f5ff;
+						
 					}.new-message-brothers-container{
-
+						
 					}
 	/*Output END*/
 
