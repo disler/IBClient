@@ -1,6 +1,7 @@
 //configuration constants
 const 	faye = require('faye'),
 		$ = require("jquery"),
+		moment = require("moment"),
 		Config = require("../initial/config.js");
 
 //dom constants
@@ -91,11 +92,22 @@ class Chat
 		}
 	}
 
-	AppendMessage(sMessage, bMyGuid, _sWho)
+	AppendMessage(_sMessage, bMyGuid, _sWho, _sDate="")
 	{
+		//classes to be set
 		let sMessageDivClass = "";
 		let sMessageContainerDivClass = "";
-		const sWho = bMyGuid ? "Me" : _sWho ? _sWho : "Anon";
+		
+		//determine who sent the message
+		const sWho = bMyGuid ? "" : _sWho ? _sWho : "Anon";
+
+		//format the date
+		let sCurrentDate = _sDate || moment().format('MM/DD/YY h:mm:ss a');
+		const sDate = `${sCurrentDate}`;
+
+		//set our message
+		let sMessage = `${_sMessage}`;
+
 		if(bMyGuid)
 		{
 			sMessageContainerDivClass = "new-message-me-position-container";
@@ -118,6 +130,11 @@ class Chat
 		const jqelNewMessageHeaderTextContainer = $("<div/>", {
 			class : "new-message-header-text-container",
 			text : sWho
+		}).appendTo(jqelNewMessageDivContainer);
+		
+		const jqelNewMessageDateHeaderTextContainer = $("<div/>", {
+			class : "new-message-header-text-date-container",
+			text : sDate
 		}).appendTo(jqelNewMessageDivContainer);
 
 		const jqelNewMessageDivBodyContainer = $("<div/>", {

@@ -24,6 +24,8 @@
 					width: auto;
 					max-width:350px;
 					margin-top:12px;
+				}.new-message-container:hover .new-message-header-text-date-container, .new-message-container.hover .new-message-header-text-date-container{
+					display:block;
 				}
 				.new-message-me-position-container{
 					margin-right:15px;
@@ -35,6 +37,14 @@
 				    margin-right: auto;
 					min-width:auto;
 				}
+					.new-message-header-text-date-container{
+						width:100%;
+						text-align: center;
+						color:#888;
+						font-size:13px;	
+						display:none;
+						transition:display .5s ease;
+					}
 					.new-message-header-text-container{
 						width:100%;
 						text-align: center;
@@ -49,7 +59,8 @@
 						border-radius:10px;
 						box-shadow:1px 1px 3px #aaa;
 						font-size:14px;
-					}.new-message-me-container{
+					}
+					.new-message-me-container{
 						border:1px solid #92a9a9;
 						background-color:#e5f5ff;
 						
