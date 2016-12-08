@@ -74,10 +74,10 @@ class Config
 			return this.oConfig.global.faye.productionServerUrl;
 	}
 
-	GetGlobalConfig()
+	GetGlobalConfig(sKey)
 	{
-		if(this.oConfig.global.hotReload)
-			return this.oConfig.global.hotReload;
+		if(this.oConfig.global[sKey])
+			return this.oConfig.global[sKey];
 		return false;
 	}
 
@@ -90,15 +90,16 @@ class Config
 	GetDefaultConfiguration()
 	{
 		return {
+			user : {
+				"username":""
+			},
 			global : {
+				sessionID : "d3e32d75-4bb3-41d7-bf78-3c8162571012",
 				production : false,
 				faye : {
 					"productionServerUrl" : "",
 					"debugServerUrl" : `http://localhost:${DEFAULT_FAYE_LOCAL_PORT}/faye`
 				}
-			},
-			user : {
-				"username":""
 			},
 			apps : [
 				{

@@ -18,12 +18,23 @@ class Chat
 	{
 		this.GUID = this.GenerateGUID();
 		this.sUsername = Config.GetUserConfig("username") || "";
+		this.sSessionID = Config.GetGlobalConfig("sessionID");
 	}
 
 	Initialize()
 	{
 		this.ConnectToServer();
 		this.ConnectToDom();
+		this.QueryInitialChat();
+	}
+
+	QueryInitialChat()
+	{
+		this.PublishEvent(this.fayeClient, "init", {
+			sSessionID : this.sSessionID,
+			sGUID : this.GUID,
+			sWho : this.sUsername
+		});
 	}
 
 	ConnectToDom()
@@ -43,10 +54,13 @@ class Chat
 				//message
 				else
 				{
+					const dtCreatedTime = new Date();
 					That.PublishEvent(That.fayeClient, "message", {
 						sData : sInput,
 						sGUID : That.GUID,
-						sWho : That.sUsername
+						sWho : That.sUsername,
+						sSessionID : That.sSessionID,
+						dtCreatedTime : dtCreatedTime
 					});
 				}
 				jqelInput.val("");
@@ -57,9 +71,9 @@ class Chat
 	ConnectToServer()
 	{
 		const sFayeConnection = Config.GetFayeConnectionUrl();
-		console.log("sFayeConnection: ", sFayeConnection);
 		this.fayeClient = new faye.Client(sFayeConnection);
 		this.fayeClient = this.AddSubscription(this.fayeClient, "receive");
+		this.fayeClient = this.AddSubscription(this.fayeClient, "init");
 	}
 
 	AddSubscription(fayeClient, sSubscription)
@@ -68,13 +82,37 @@ class Chat
 
 		switch(sSubscription.toLowerCase())
 		{
+			case "init":
+				newFayeClient.subscribe(`/chat/init/receive/${this.GUID}`, (oResponse, sub_) => 
+				{
+					const lstMessages = oResponse.lstPreviousChatMessages;
+
+					//order the dates
+					lstMessages.sort((a, b) =>
+					{
+						return new Date(a.dtCreatedTime) <= new Date(b.dtCreatedTime) ? 0 : 1;
+					});
+
+					lstMessages.forEach((oMessage) =>
+					{
+						console.log("oMessage: ", oMessage);
+						const sMessage = oMessage.sMessage;
+						const bIsMe = oMessage.sWho === this.sUsername;
+						const sWho = oMessage.sWho;
+						const dtCreatedTime = oMessage.dtCreatedTime;
+						this.AppendMessage(sMessage, bIsMe, sWho, dtCreatedTime);
+					});
+
+				});
+			break;
 			case "receive":
-				newFayeClient.subscribe("/message/receive", (oResponse) =>
+				newFayeClient.subscribe(`/chat/message/receive/${this.sSessionID}`, (oResponse) =>
 				{
 					const sMessage = oResponse.sData;
-					const bMyGuid = oResponse.sGUID === this.GUID;
+					const bIsMe = oResponse.sGUID === this.GUID;
 					const sWho = oResponse.sWho;
-					this.AppendMessage(sMessage, bMyGuid, sWho);
+					const dtCreatedTime = oResponse.dtCreatedTime;
+					this.AppendMessage(sMessage, bIsMe, sWho, dtCreatedTime);
 				});
 			break;
 		}
@@ -86,8 +124,11 @@ class Chat
 	{
 		switch(sEventToPublish)
 		{
+			case "init":
+				fayeClient.publish(`/chat/init/send/${this.sSessionID}`, oParams);
+			break;
 			case "message":
-				fayeClient.publish("/message/send", oParams);
+				fayeClient.publish(`/chat/message/send/${this.sSessionID}`, oParams);
 			break;
 		}
 	}
@@ -102,8 +143,8 @@ class Chat
 		const sWho = bMyGuid ? "" : _sWho ? _sWho : "Anon";
 
 		//format the date
-		let sCurrentDate = _sDate || moment().format('MM/DD/YY h:mm:ss a');
-		const sDate = `${sCurrentDate}`;
+		let sCurrentDate = moment(_sDate).format('MM/DD/YY h:mm:ss a') 
+						|| moment().format('MM/DD/YY h:mm:ss a');
 
 		//set our message
 		let sMessage = `${_sMessage}`;
@@ -134,7 +175,7 @@ class Chat
 		
 		const jqelNewMessageDateHeaderTextContainer = $("<div/>", {
 			class : "new-message-header-text-date-container",
-			text : sDate
+			text : sCurrentDate
 		}).appendTo(jqelNewMessageDivContainer);
 
 		const jqelNewMessageDivBodyContainer = $("<div/>", {
@@ -187,4 +228,3 @@ const chat = new Chat();
 chat.Initialize();
 
 q = chat;
-$$=$

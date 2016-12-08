@@ -1,0 +1,5 @@
+sessionID:
+	The default built configuration sessionID is set to a random guid - this needs to be empty and the user must configure or create a new one (maybe by default)
+
+sWho:
+	Usernames need to be unique - when in settings setting the user name, do a DB check to make sure this username has not been changed - also this cannot be changed (except through the config file hmm)

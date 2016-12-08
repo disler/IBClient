@@ -25,3 +25,10 @@ Frameworks/tools/db:
 	http://graphql.org/
 	reactjs
 
+Database:
+    MongoDB
+        - going with mongodb due to schema format, and gridfs support for large files
+        - resource:
+            https://docs.mongodb.com/
+    CouchDB
+    Redis
