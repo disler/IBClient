@@ -1,5 +1,5 @@
 //configuration constants
-const 	faye = require('faye'),
+const
 		$ = require("jquery"),
 		moment = require("moment"),
 		Config = require("../initial/config.js");
@@ -70,8 +70,7 @@ class Chat
 
 	ConnectToServer()
 	{
-		const sFayeConnection = Config.GetFayeConnectionUrl();
-		this.fayeClient = new faye.Client(sFayeConnection);
+		this.fayeClient = Config.GetFayeInstance();
 		this.fayeClient = this.AddSubscription(this.fayeClient, "receive");
 		this.fayeClient = this.AddSubscription(this.fayeClient, "init");
 	}

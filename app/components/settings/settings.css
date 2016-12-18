@@ -1,0 +1,56 @@
+.settings-container{
+	margin-left:auto;
+	margin-right:auto;
+	width:800px;
+	padding:15px;
+}
+
+.settings-item-container{
+	width:100%;
+	height:50px;
+	margin-top:15px;
+}
+
+.settings-sessionid-container{
+	display:flex;
+	justify-content: space-between;
+}
+	.sessionid_input-container{
+		height:50px;
+	}.sessionid_input-container > *{
+		height:100%;
+	}
+
+.settings-username-container{
+	display:flex;
+}.settings-username-container > input {
+	margin-left:auto;
+}
+
+.save-container{
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+}
+
+#username{
+	text-align: center;
+	width:300px;
+	font-size:18px;
+}
+#session_id{
+	text-align: center;
+	width:300px;
+	font-size:14px;
+}
+
+#save{
+	cursor: pointer;
+	margin-top:15px;
+	width:300px;
+	background-color:#eee;
+	height:35px;
+	border:none;
+	box-shadow: 1px 1px 1px #aaa;
+}

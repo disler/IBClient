@@ -64,6 +64,12 @@ function createMainWindow()
         };
     });
 
+    ipcMain.on("restart", (event, args) =>
+    {
+        app.relaunch();
+        app.quit();
+    })
+
     return win;
 }
 

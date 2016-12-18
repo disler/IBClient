@@ -28,6 +28,7 @@ class Initial
 		this.APP_BASE_PATH = "";
 		this.APP_DATA_PATH = "";
 		this.APP_COMPONENTS_DIR_PATH = "";
+		this.sCurrentView = "welcome";
 
 		this.Configure();
         this.ConnectToDom();
@@ -186,6 +187,9 @@ class Initial
 
 	ChangeView(sViewName)
 	{
+		if(this.sCurrentView === sViewName)
+			return;
+
 		let oContentNode = "";
 		let link = document.querySelector(`link[id="${sViewName}"]`);
 		if(link)
@@ -202,6 +206,7 @@ class Initial
 		{
 			document.getElementById("content").innerHTML = "";
 			document.getElementById("content").appendChild(oContentNode);
+			this.sCurrentView = sViewName;
 		}
 	}
 }

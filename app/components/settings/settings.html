@@ -1,7 +1,23 @@
 <template class="settings-template">
 	<link rel="stylesheet" type="text/css" href="./app/components/settings/settings.css">
-	<div>
-		settings
+	<div class="settings-wrapper">
+		<div class="settings-container">
+			<div class="settings-sessionid-container settings-item-container">
+				<h2>Session ID</h2>
+				<div class="sessionid_input-container">
+					<button id="generate_new">Generate New</button>
+					<input id="session_id" type="text" placeholder="Session ID" />
+				</div>
+			</div>
+			<div class="settings-username-container settings-item-container">
+				<h2>Username</h2>
+				<input id="username" type="text" placeholder="Username" />
+			</div>
+
+			<div class="save-container">
+				<button id="save" class="">Save Settings And Restart</button>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript">
 		require('./app/components/settings/settings.js');
