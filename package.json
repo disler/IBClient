@@ -1,6 +1,6 @@
 {
-  "name": "IBrosClient",
-  "productName": "IBrosClient",
+  "name": "IBClient",
+  "productName": "IBClient",
   "version": "0.0.1",
   "description": "Multi Purpose Isler Brothers Communication Client",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . --out=dist --asar --overwrite --all"
+    "build": "electron-packager . IBClient --version=1.4.13 --out=dist --icon=./app/components/initial/logo.ico --platform=win32 --arch=x64 --overwrite"
   },
   "files": [
     "index.js",

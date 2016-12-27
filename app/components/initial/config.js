@@ -158,13 +158,13 @@ class Config
 	{
 		return {
 			user : {
-				"username":""
+				"username":"New User"
 			},
 			global : {
 				sessionID : "d3e32d75-4bb3-41d7-bf78-3c8162571012",
-				production : false,
+				production : true,
 				faye : {
-					"productionServerUrl" : "",
+					"productionServerUrl" : "http://10.0.0.99:3333/faye",
 					"debugServerUrl" : `http://localhost:${DEFAULT_FAYE_LOCAL_PORT}/faye`
 				}
 			},
