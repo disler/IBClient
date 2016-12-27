@@ -1,13 +1,10 @@
 //configuration constants
-const
-		$ = require("jquery"),
-		moment = require("moment"),
-		Config = require("../initial/config.js");
+let	$ = require("jquery"),
+	moment = require("moment"),
+	Config = require("../initial/config.js");
 
 //dom constants
-const jqelOutputWrapper = $(".output-wrapper");
-const jqelOutput = $("#output");
-const jqelInput = $("#input");
+
 
 //project level constants
 const lstCommands = ["/name"];
@@ -19,12 +16,16 @@ class Chat
 		this.GUID = this.GenerateGUID();
 		this.sUsername = Config.GetUserConfig("username") || "";
 		this.sSessionID = Config.GetGlobalConfig("sessionID");
+
+		this.jqelOutputWrapper = {};
+		this.jqelOutput = {};
+		this.jqelInput = {};
 	}
 
 	Initialize()
 	{
-		this.ConnectToServer();
 		this.ConnectToDom();
+		this.ConnectToServer();
 		this.QueryInitialChat();
 	}
 
@@ -39,10 +40,16 @@ class Chat
 
 	ConnectToDom()
 	{
+		//setup elements
+		this.jqelOutputWrapper = $(".output-wrapper");
+		this.jqelOutput = $("#output");
+		this.jqelInput = $("#input");
+
+		//setup events
 		const That = this;
-		jqelInput.on("keyup", function(e)
+		$(this.jqelInput).on("keyup",  (e) =>
 		{
-			const sInput = jqelInput.val();
+			const sInput = That.jqelInput.val();
 			if(e.keyCode == 13 && sInput)
 			{
 				//command
@@ -63,7 +70,7 @@ class Chat
 						dtCreatedTime : dtCreatedTime
 					});
 				}
-				jqelInput.val("");
+				That.jqelInput.val("");
 			}
 		});
 	}
@@ -82,7 +89,9 @@ class Chat
 		switch(sSubscription.toLowerCase())
 		{
 			case "init":
-				newFayeClient.subscribe(`/chat/init/receive/${this.GUID}`, (oResponse, sub_) => 
+				const sInitChannel = `/chat/init/receive/${this.GUID}`;
+				newFayeClient.unsubscribe(sInitChannel);
+				newFayeClient.subscribe(sInitChannel, (oResponse, sub_) => 
 				{
 					const lstMessages = oResponse.lstPreviousChatMessages;
 
@@ -94,7 +103,7 @@ class Chat
 
 					lstMessages.forEach((oMessage) =>
 					{
-						console.log("oMessage: ", oMessage);
+						// console.log("oMessage: ", oMessage);
 						const sMessage = oMessage.sMessage;
 						const bIsMe = oMessage.sWho === this.sUsername;
 						const sWho = oMessage.sWho;
@@ -105,7 +114,9 @@ class Chat
 				});
 			break;
 			case "receive":
-				newFayeClient.subscribe(`/chat/message/receive/${this.sSessionID}`, (oResponse) =>
+				const sReceiveChannel = `/chat/message/receive/${this.sSessionID}`;
+				newFayeClient.unsubscribe(sReceiveChannel);
+				newFayeClient.subscribe(sReceiveChannel, (oResponse) =>
 				{
 					const sMessage = oResponse.sData;
 					const bIsMe = oResponse.sGUID === this.GUID;
@@ -182,10 +193,10 @@ class Chat
 			class : `${sMessageDivClass} new-message-base-container`
 		}).appendTo(jqelNewMessageDivContainer);
 
-		jqelOutput.append(jqelNewMessageDivWrapper);
+		this.jqelOutput.append(jqelNewMessageDivWrapper);
 
 		//keep scroll at bottom
-		jqelOutputWrapper[0].scrollTop = jqelOutputWrapper[0].scrollHeight;
+		this.jqelOutputWrapper[0].scrollTop = this.jqelOutputWrapper[0].scrollHeight;
 	}
 
 	GenerateGUID()
@@ -223,7 +234,4 @@ class Chat
 	}
 }
 
-const chat = new Chat();
-chat.Initialize();
-
-q = chat;
+module.exports = new Chat();

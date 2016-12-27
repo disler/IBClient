@@ -1,0 +1,39 @@
+.traceroute-container{
+	width:800px;
+	margin-top:25px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+	.traceroute-header-container{
+		width:100%;
+		margin-left:auto;
+		margin-right:auto;
+		margin-bottom:15px;
+	}
+
+		#address{
+			margin-left:auto;
+			margin-right:auto;
+			width:100%;
+			text-align: center;
+		}
+
+	.traceroute-body-container{
+		width:100%;
+	}
+
+	.traceroute-table{
+		width:100%;
+		text-align: center;
+	}
+
+	.traceroute-table > tr{
+	}
+
+	#status{
+		width:100%;
+		margin-top:10px;
+		margin-bottom:10px;
+		text-align: center;
+	}

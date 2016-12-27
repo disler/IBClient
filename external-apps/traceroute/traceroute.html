@@ -1,0 +1,27 @@
+<template class="traceroute-template">
+	<link rel="stylesheet" type="text/css" href="./app/components/traceroute/traceroute.css">
+	<div class="traceroute-wrapper">
+
+		<div class="traceroute-container">
+			<div id="status"></div>
+			<div class="traceroute-header-container">
+				<input id="address" type="text" placeholder="Address" />
+			</div>	
+			<div class="traceroute-body-container">
+				<table id="trace_table" class="traceroute-table">
+					<tr id="trace_header">
+						<th>Hop Count</th>
+						<th>IP Address</th>
+						<th>Round Trip Time</th>
+						<th>Target</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+	<script type="text/javascript">
+		var _traceroute = require('./app/components/traceroute/traceroute.js');
+		_traceroute.Initialize();
+	</script>
+</template>

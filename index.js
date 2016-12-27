@@ -60,7 +60,7 @@ function createMainWindow()
 
     ipcMain.on('should-load-external-apps', (event, args) => {
         event.returnValue = {
-            bLoadExternalApps: false
+            bLoadExternalApps: oQuickConfig.bLoadExternalApps
         };
     });
 

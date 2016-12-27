@@ -101,25 +101,35 @@ class Initial
 					//copy the directory contents from the external app componets to the internal app components
 					fs.copy(sComponentsFromDir, sComponentsToDir, function(err)
 					{
-						if(!err)
+						setTimeout(function()
 						{
-							//append html link node to head dom
-							jqelHead.append($("<link/>", {
-								id : sAppName,
-								rel : "import",
-								href : `./app/components/${sAppName}/${oAppData.html}`
-							}));
+							console.log("sAppName: ", sAppName);
+							console.log("oAppData: ", JSON.stringify(oAppData));
+							if(!err)
+							{
+								//append html link node to head dom
+								jqelHead.append($("<link/>", {
+									id : sAppName,
+									rel : "import",
+									href : `./app/components/${sAppName}/${oAppData.html}`
+								}));
 
-							//append icon to header section
-							jqelHeaderApps.prepend($("<div/>", {
-								app : `${sAppName}`,
-								class : "header-app-container",
-								html : $("<img/>", {
-									class : "header-app-img",
-									src : `./app/components/${sAppName}/${oAppData.iconInRelativePath}`
-								})
-							}));
-						}
+								//append icon to header section
+								jqelHeaderApps.prepend($("<div/>", {
+									app : `${sAppName}`,
+									class : "header-app-container",
+									html : $("<img/>", {
+										class : "header-app-img",
+										src : `./app/components/${sAppName}/${oAppData.iconInRelativePath}`
+									})
+								}));
+							}
+							else
+							{
+								console.log("err: ", err);
+							}
+						}, 1500);
+						
 					}); 
 				}
 			}

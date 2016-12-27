@@ -6,6 +6,8 @@
 		<link rel="stylesheet" href="index.css">
 		<link id="chat" rel="import" href="./app/components/chat/chat.html">
 		<link id="settings" rel="import" href="./app/components/settings/settings.html">
+		<link id="traceroute" rel="import" href="./app/components/traceroute/traceroute.html">
+		<link id="weather" rel="import" href="./app/components/weather/weather.html">
 	</head>
 	<body>
 		<div class="app-wrapper">
@@ -14,6 +16,12 @@
 					<div class="header-container">
 						<div id="apps" class="header-apps-container">
 						
+							<div app="traceroute" class="header-app-container">
+								<img src="./app/components/traceroute/icon.jpg" class="header-app-img">
+							</div>
+							<div app="weather" class="header-app-container">
+								<img src="./app/components/weather/icon.png" class="header-app-img">
+							</div>
 							<div app="chat" class="header-app-container">
 								<img src="./app/components/chat/icon.png" class="header-app-img">
 							</div>

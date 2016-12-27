@@ -3,14 +3,15 @@
 const 	Config = require("../initial/config.js"),
 		$ = require("jquery");
 
-const 	jqelGenerateNewSessionIDButton = $("#generate_new"),
-		jqelSaveButton = $("#save"),
-		jqelSessionIDInput = $("#session_id"),
-		jqelUsernameInput = $("#username");
-
 class settings
 {
-	constructor(){}
+	constructor()
+	{
+		this.jqelGenerateNewSessionIDButton = {};
+		this.jqelSaveButton = {};
+		this.jqelSessionIDInput = {};
+		this.jqelUsernameInput = {};
+	}
 
 	Initialize()
 	{
@@ -20,14 +21,23 @@ class settings
 
 	ConnectToDom()
 	{
+		//elements
+		this.jqelGenerateNewSessionIDButton = $("#generate_new");
+		this.jqelSaveButton = $("#save");
+		this.jqelSessionIDInput = $("#session_id");
+		this.jqelUsernameInput = $("#username");
+
+		//events
 		const That = this;
-		jqelGenerateNewSessionIDButton.on("click", (event) =>
+		$(this.jqelGenerateNewSessionIDButton).on("click", (event) =>
 		{
+			console.log(event);
 			That.GenerateNewSessionID();
 		});
 
-		jqelSaveButton.on("click", (event) =>
+		$(this.jqelSaveButton).on("click", (event) =>
 		{
+			console.log("event: ", event);
 			That.SaveSettings();
 		});
 	}
@@ -35,7 +45,7 @@ class settings
 	GenerateNewSessionID()
 	{
 		const sNewGUID = Config.GenerateNewSessionID();
-		jqelSessionIDInput.val(sNewGUID);
+		this.jqelSessionIDInput.val(sNewGUID);
 	}
 
 	InitializeDom()
@@ -43,14 +53,14 @@ class settings
 		const sSessionID = Config.GetGlobalConfig("sessionID");
 		const sUsername = Config.GetUserConfig("username");
 
-		jqelSessionIDInput.val(sSessionID);
-		jqelUsernameInput.val(sUsername);
+		this.jqelSessionIDInput.val(sSessionID);
+		this.jqelUsernameInput.val(sUsername);
 	}
 
 	SaveSettings()
 	{
-		const sSessionID = jqelSessionIDInput.val();
-		const sUsername = jqelUsernameInput.val();
+		const sSessionID = this.jqelSessionIDInput.val();
+		const sUsername = this.jqelUsernameInput.val();
 		Config.SaveConfiguration({
 			username:sUsername,
 			sessionID:sSessionID
@@ -59,5 +69,4 @@ class settings
 
 }
 
-const _settings = new settings();
-_settings.Initialize();
+module.exports = new settings();
