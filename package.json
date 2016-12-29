@@ -33,6 +33,8 @@
     "devtron": "^1.1.0",
     "electron": "^1.0.1",
     "electron-packager": "^8.0.0",
-    "nodejs-traceroute": "^1.1.0"
+    "electron-reload": "^1.1.0",
+    "nodejs-traceroute": "^1.1.0",
+    "open": "0.0.5"
   }
 }
