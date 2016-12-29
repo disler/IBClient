@@ -1,13 +1,23 @@
 //configuration constants
 let	$ = require("jquery"),
 	moment = require("moment"),
-	Config = require("../initial/config.js");
+	Config = require("../initial/config.js"),
+	// JS Opener Victor Costan
+	// description: opens programs, websites, and folder locations using node.js
+	// github: https://github.com/pwnall/node-open/blob/master/lib/open.js
+	open = require('open');
 
 //dom constants
 
 
 //project level constants
 const lstCommands = ["/name"];
+const lstComSuffixes = [".com", ".net", ".org", ".eu"];
+
+function aTagClick(_target) {
+	alert(_target);
+	return;
+}
 
 class Chat
 {	
@@ -142,7 +152,62 @@ class Chat
 			break;
 		}
 	}
-
+	
+	// Displays external links as clickable elements.
+	// Returns an html string.
+	ParseMessage(_sMessage)
+	{
+		let _divMessage = $("<div/>");
+		let _sHTMLMessage = "";
+		let _comIndex = -1;
+		let _lstWords = _sMessage.split(" ");
+		let _lstLinks = _lstWords;
+		let _newTag;
+		
+		// Search throughout the sMessage for seperate chunks.
+		for(let i = 0; i < _lstWords.length; i++) {
+			
+			_comIndex = -1;
+			_newTag = $("<span/>", {
+				text : _lstWords[i]
+			});
+			
+			// search through each individual word for '.com'
+			for(let j = 0; j < lstComSuffixes.length; j++) {
+				if( ( _comIndex = _lstWords[i].indexOf( lstComSuffixes[j] ) ) != -1) {
+					
+					break;
+				}
+			}
+			
+			// when a link is found, run this code.
+			if(_comIndex !== -1) { console.log("_comIndex",_comIndex);
+				//_lstWords[i] = `<a href="javascript:void(0);" data-href="${_lstLinks[i]}" onclick="open('${_lstLinks[i]}')">${_lstLinks[i]}</a>`;
+				_newTag = document.createElement("a"); 
+				_newTag.href = "#";
+				_newTag.innerHTML = _lstLinks[i];
+				
+				// We must set a custom a tag attribute because without it
+				// the selected i index would iterate and call the incorrect
+				// index.
+				_newTag.indexHref = i;
+				
+				_newTag.onclick = function(e) {  
+					//console.log("list: ",_newTag.indexHref,_lstLinks[0]);
+					open( _lstLinks[this.indexHref] );
+				};
+				_newTag = $(_newTag);
+			}
+			
+			// Put the word back in. (now containing the a tags)
+			_newTag.appendTo(_divMessage);
+			//_sHTMLMessage = _sHTMLMessage + _lstWords[i] + ((i < _lstWords.length) ? "" : " ");
+			
+		}
+		
+		return _divMessage;
+	}
+	
 	AppendMessage(_sMessage, bMyGuid, _sWho, _sDate="")
 	{
 		//classes to be set
@@ -187,9 +252,11 @@ class Chat
 			class : "new-message-header-text-date-container",
 			text : sCurrentDate
 		}).appendTo(jqelNewMessageDivContainer);
-
+		
+		let sHTMLMessage = this.ParseMessage(sMessage);
+		
 		const jqelNewMessageDivBodyContainer = $("<div/>", {
-			text : sMessage,
+			html : sHTMLMessage,
 			class : `${sMessageDivClass} new-message-base-container`
 		}).appendTo(jqelNewMessageDivContainer);
 
